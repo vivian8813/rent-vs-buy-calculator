@@ -1,0 +1,10 @@
+# robots.txt for rent-vs-buy-calculator.it.com
+
+User-agent: *
+Allow: /
+
+# Disallow admin/config files if any
+Disallow: /_*
+
+# Sitemap location
+Sitemap: https://rent-vs-buy-calculator.it.com/sitemap.xml

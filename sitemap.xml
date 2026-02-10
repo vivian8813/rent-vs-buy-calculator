@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main calculator -->
+  <url>
+    <loc>https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Country-specific pages -->
+  <url>
+    <loc>https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-usa</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-uk</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Future: Add Canada and Australia when created
+  <url>
+    <loc>https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-canada</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-australia</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  -->
+
+  <!-- Future: Add city/scenario long-tail pages here
+  Examples:
+  <url>
+    <loc>https://rent-vs-buy-calculator.it.com/rent-vs-buy-new-york</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://rent-vs-buy-calculator.it.com/rent-vs-buy-london</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://rent-vs-buy-calculator.it.com/rent-vs-buy-short-term</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  -->
+</urlset>

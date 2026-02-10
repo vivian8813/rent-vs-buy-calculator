@@ -1,0 +1,15 @@
+# Country-specific redirects (clean URLs without .html)
+/rent-vs-buy-calculator /rent-vs-buy-calculator.html
+/rent-vs-buy-calculator-uk /rent-vs-buy-calculator-uk.html
+/rent-vs-buy-calculator-usa /rent-vs-buy-calculator-usa.html
+
+# Future country pages (when created)
+/rent-vs-buy-calculator-canada /rent-vs-buy-calculator-canada.html
+/rent-vs-buy-calculator-australia /rent-vs-buy-calculator-australia.html
+
+# Clean URLs for long-tail pages (future SEO pages)
+# Add these as you create city/scenario pages:
+# /rent-vs-buy-new-york /rent-vs-buy-new-york.html
+# /rent-vs-buy-london /rent-vs-buy-london.html
+# /rent-vs-buy-short-term /rent-vs-buy-short-term.html
+# ...and so on
