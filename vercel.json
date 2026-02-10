@@ -1,0 +1,26 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/rent-vs-buy-calculator",
+      "destination": "/rent-vs-buy-calculator.html"
+    },
+    {
+      "source": "/rent-vs-buy-calculator-uk",
+      "destination": "/rent-vs-buy-calculator-uk.html"
+    },
+    {
+      "source": "/rent-vs-buy-calculator-usa",
+      "destination": "/rent-vs-buy-calculator-usa.html"
+    },
+    {
+      "source": "/rent-vs-buy-calculator-canada",
+      "destination": "/rent-vs-buy-calculator-canada.html"
+    },
+    {
+      "source": "/rent-vs-buy-calculator-australia",
+      "destination": "/rent-vs-buy-calculator-australia.html"
+    }
+  ]
+}
