@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Austin Rent vs Buy Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111827;
+      --muted:#4b5563;
+      --line:#e5e7eb;
+      --brand:#2563eb;
+      --brand2:#1d4ed8;
+      --shadow: 0 4px 12px rgba(0,0,0,.08);
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background: var(--bg);
+      color: var(--text);
+      padding: 18px;
+      line-height: 1.6;
+    }
+    .calc-container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin: 14px 0;
+    }
+    .card{
+      background: #fff;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .cardHeader{
+      padding: 10px 12px;
+      border-bottom:1px solid var(--line);
+      background: #f8fafc;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .cardBody{ padding: 12px; }
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    label{
+      font-size: 12px;
+      color: var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+    }
+    input{
+      width:100%;
+      padding: 10px;
+      border:1px solid var(--line);
+      border-radius: 8px;
+      background:#fff;
+      color: var(--text);
+      outline: none;
+    }
+    input:focus{ border-color: #93c5fd; }
+    .btn-group{
+      display:flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn{
+      border:none;
+      background: var(--brand);
+      color:#fff;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor:pointer;
+      flex:1;
+    }
+    .btn:hover{ background: var(--brand2); }
+    .btn.secondary{
+      background:#fff;
+      color: var(--text);
+      border:1px solid var(--line);
+    }
+    .btn.secondary:hover{ background:#f9fafb; }
+
+    .result-box{
+      background: #f0f9ff;
+      border:1px solid #bae6fd;
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-top: 14px;
+    }
+    .result-title{
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    .result-detail{
+      font-size: 14px;
+      color: var(--muted);
+    }
+    @media (max-width: 640px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="calc-container">
+    <div class="grid">
+      <!-- Home Purchase -->
+      <div class="card">
+        <div class="cardHeader">Home Purchase</div>
+        <div class="cardBody">
+          <div class="field">
+            <label>Home price <span>USD</span></label>
+            <input id="homePrice" type="number" value="450000" />
+          </div>
+          <div class="field">
+            <label>Down payment <span>%</span></label>
+            <input id="downPaymentPct" type="number" value="20" />
+          </div>
+          <div class="field">
+            <label>Interest rate <span>%</span></label>
+            <input id="mortgageRateAnnual" type="number" value="6.5" step="0.01" />
+          </div>
+          <div class="field">
+            <label>Loan term <span>years</span></label>
+            <input id="mortgageTermYears" type="number" value="30" />
+          </div>
+          <div class="field">
+            <label>Property tax / year <span>%</span></label>
+            <input id="propertyTaxAnnualPct" type="number" value="2.0" step="0.1" />
+          </div>
+          <div class="field">
+            <label>Home insurance / year <span>USD</span></label>
+            <input id="homeInsuranceAnnual" type="number" value="2000" />
+          </div>
+          <div class="field">
+            <label>Years you plan to stay <span>years</span></label>
+            <input id="yearsToStay" type="number" value="5" min="1" max="30" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Home Rent -->
+      <div class="card">
+        <div class="cardHeader">Home Rent</div>
+        <div class="cardBody">
+          <div class="field">
+            <label>Monthly rent <span>USD</span></label>
+            <input id="monthlyRent" type="number" value="2000" />
+          </div>
+          <div class="field">
+            <label>Rent increase / year <span>%</span></label>
+            <input id="rentIncreaseAnnual" type="number" value="3" />
+          </div>
+          <div class="field">
+            <label>Security deposit <span>USD</span></label>
+            <input id="securityDeposit" type="number" value="2000" />
+          </div>
+          <div class="field">
+            <label>Investment return <span>%</span></label>
+            <input id="investmentReturnAnnual" type="number" value="5" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn" onclick="calculate()">Calculate</button>
+      <button class="btn secondary" onclick="resetForm()">Reset</button>
+    </div>
+
+    <div class="result-box" id="result" style="display:none;">
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-detail" id="resultDetail"></div>
+    </div>
+
+    <script>
+    function num(id){ return parseFloat(document.getElementById(id).value) || 0; }
+    function money(x){ return '$'+x.toLocaleString('en-US',{maximumFractionDigits:0}); }
+
+    function monthlyPayment(loanAmount, annualRate, termYears){
+      const n = termYears * 12;
+      const r = annualRate / 1200;
+      if (r === 0) return loanAmount / n;
+      return loanAmount * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    }
+
+    function calculate(){
+      const homePrice = num('homePrice');
+      const downPayment = homePrice * num('downPaymentPct') / 100;
+      const loanAmount = homePrice - downPayment;
+      const monthlyPmt = monthlyPayment(loanAmount, num('mortgageRateAnnual'), num('mortgageTermYears'));
+      const months = Math.min(num('yearsToStay')*12, num('mortgageTermYears')*12);
+
+      let totalPmt = monthlyPmt * months;
+      let balance = loanAmount;
+      const r = num('mortgageRateAnnual') / 1200;
+      for(let i=0;i<months;i++){
+        balance -= monthlyPmt - balance*r;
+        if(balance<0) balance=0;
+      }
+
+      const totalBuy =
+        totalPmt +
+        homePrice * num('propertyTaxAnnualPct')/100 * num('yearsToStay') +
+        num('homeInsuranceAnnual') * num('yearsToStay') +
+        downPayment * (Math.pow(1+num('investmentReturnAnnual')/100, num('yearsToStay'))-1);
+
+      const annualRent = num('monthlyRent')*12;
+      let totalRent = 0;
+      for(let y=1;y<=num('yearsToStay');y++){
+        totalRent += annualRent * Math.pow(1+num('rentIncreaseAnnual')/100, y-1);
+      }
+      totalRent += num('securityDeposit');
+
+      const diff = totalBuy - totalRent;
+      const resultEl = document.getElementById('result');
+      const titleEl = document.getElementById('resultTitle');
+      const detailEl = document.getElementById('resultDetail');
+
+      resultEl.style.display = 'block';
+      if(diff<0){
+        titleEl.textContent = 'Buying is cheaper by '+money(Math.abs(diff));
+        detailEl.textContent = 'Over '+num('yearsToStay')+' years, buying costs '+money(totalBuy)+' vs renting '+money(totalRent)+'.';
+      }else{
+        titleEl.textContent = 'Renting is cheaper by '+money(diff);
+        detailEl.textContent = 'Over '+num('yearsToStay')+' years, renting costs '+money(totalRent)+' vs buying '+money(totalBuy)+'.';
+      }
+    }
+
+    function resetForm(){
+      document.getElementById('homePrice').value = 450000;
+      document.getElementById('downPaymentPct').value = 20;
+      document.getElementById('mortgageRateAnnual').value = 6.5;
+      document.getElementById('mortgageTermYears').value = 30;
+      document.getElementById('propertyTaxAnnualPct').value = 2.0;
+      document.getElementById('homeInsuranceAnnual').value = 2000;
+      document.getElementById('monthlyRent').value = 2000;
+      document.getElementById('rentIncreaseAnnual').value = 3;
+      document.getElementById('securityDeposit').value = 2000;
+      document.getElementById('investmentReturnAnnual').value = 5;
+      document.getElementById('result').style.display = 'none';
+    }
+
+    // Auto-calculate on input change
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('change', calculate);
+      input.addEventListener('input', calculate);
+    });
+  </script>
+</body>
+</html>

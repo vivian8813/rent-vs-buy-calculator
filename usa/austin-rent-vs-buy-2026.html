@@ -387,15 +387,238 @@
           Run your own numbers with a few scenarios. This is the fastest way to avoid “rules of thumb” that don’t match your reality.
         </p>
 
-        <div class="embed" id="calculator-embed">
-          <!-- Embedded calculator iframe -->
-          <iframe
-            title="Rent vs Buy Calculator for Austin"
-            src="/#calculator"
-            style="width:100%;height:920px;border:0;border-radius:16px;"
-            loading="lazy"
-          ></iframe>
+        <style>
+    /* Calculator embed styles for Austin page */
+    .calc-container{
+      max-width: 100%;
+      margin: 0;
+    }
+    .calc-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+    .calc-card{
+      background: #fff;
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    }
+    .calc-header{
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom:1px solid var(--border);
+    }
+    .calc-field{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .calc-field label{
+      font-size: 12px;
+      color: var(--muted);
+      display:flex;
+      justify-content:space-between;
+    }
+    .calc-field input{
+      width:100%;
+      padding: 10px;
+      border:1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .calc-field input:focus{
+      border-color: #2563eb;
+      outline: none;
+    }
+    .calc-btns{
+      display:flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .calc-btn{
+      flex:1;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+    }
+    .calc-btn.primary{ background: #2563eb; color: #fff; }
+    .calc-btn.primary:hover{ background: #1d4ed8; }
+    .calc-btn.secondary{ background: #f3f4f6; color: #111; }
+    .calc-btn.secondary:hover{ background: #e5e7eb; }
+    .calc-result{
+      background: #f0f9ff;
+      border:1px solid #bae6fd;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 14px;
+      display: none;
+    }
+    .calc-result-title{
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    .calc-result-detail{
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    @media (max-width: 640px){
+      .calc-grid{ grid-template-columns: 1fr; }
+    }
+    </style>
+
+    <div class="calc-container">
+      <div class="calc-grid">
+        <!-- Home Purchase -->
+        <div class="calc-card">
+          <div class="calc-header">Home Purchase</div>
+          <div class="calc-field">
+            <label>Home price <span>USD</span></label>
+            <input id="homePrice" type="number" value="450000" />
+          </div>
+          <div class="calc-field">
+            <label>Down payment <span>%</span></label>
+            <input id="downPaymentPct" type="number" value="20" />
+          </div>
+          <div class="calc-field">
+            <label>Interest rate <span>%</span></label>
+            <input id="mortgageRateAnnual" type="number" value="6.5" step="0.01" />
+          </div>
+          <div class="calc-field">
+            <label>Loan term <span>years</span></label>
+            <input id="mortgageTermYears" type="number" value="30" />
+          </div>
+          <div class="calc-field">
+            <label>Property tax / year <span>%</span></label>
+            <input id="propertyTaxAnnualPct" type="number" value="2.0" step="0.1" />
+          </div>
+          <div class="calc-field">
+            <label>Home insurance / year <span>USD</span></label>
+            <input id="homeInsuranceAnnual" type="number" value="2000" />
+          </div>
+          <div class="calc-field">
+            <label>Years to stay <span>years</span></label>
+            <input id="yearsToStay" type="number" value="5" min="1" max="30" />
+          </div>
         </div>
+
+        <!-- Home Rent -->
+        <div class="calc-card">
+          <div class="calc-header">Home Rent</div>
+          <div class="calc-field">
+            <label>Monthly rent <span>USD</span></label>
+            <input id="monthlyRent" type="number" value="2000" />
+          </div>
+          <div class="calc-field">
+            <label>Rent increase / year <span>%</span></label>
+            <input id="rentIncreaseAnnual" type="number" value="3" />
+          </div>
+          <div class="calc-field">
+            <label>Security deposit <span>USD</span></label>
+            <input id="securityDeposit" type="number" value="2000" />
+          </div>
+          <div class="calc-field">
+            <label>Investment return <span>%</span></label>
+            <input id="investmentReturnAnnual" type="number" value="5" />
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-btns">
+        <button class="calc-btn primary" onclick="calcCalculate()">Calculate</button>
+        <button class="calc-btn secondary" onclick="calcReset()">Reset</button>
+      </div>
+
+      <div class="calc-result" id="calcResult">
+        <div class="calc-result-title" id="resultTitle"></div>
+        <div class="calc-result-detail" id="resultDetail"></div>
+      </div>
+
+      <script>
+      function calcNum(id){ return parseFloat(document.getElementById(id).value) || 0; }
+      function calcMoney(x){ return '$'+x.toLocaleString('en-US',{maximumFractionDigits:0}); }
+
+      function calcMonthlyPayment(loanAmount, annualRate, termYears){
+        const n = termYears * 12;
+        const r = annualRate / 1200;
+        if (r === 0) return loanAmount / n;
+        return loanAmount * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+      }
+
+      function calcCalculate(){
+        const homePrice = calcNum('homePrice');
+        const downPayment = homePrice * calcNum('downPaymentPct') / 100;
+        const loanAmount = homePrice - downPayment;
+        const monthlyPmt = calcMonthlyPayment(loanAmount, calcNum('mortgageRateAnnual'), calcNum('mortgageTermYears'));
+        const months = Math.min(calcNum('yearsToStay')*12, calcNum('mortgageTermYears')*12);
+
+        let totalPmt = monthlyPmt * months;
+        let balance = loanAmount;
+        const r = calcNum('mortgageRateAnnual') / 1200;
+        for(let i=0;i<months;i++){
+          balance -= monthlyPmt - balance*r;
+          if(balance<0) balance=0;
+        }
+
+        const totalBuy =
+          totalPmt +
+          homePrice * calcNum('propertyTaxAnnualPct')/100 * calcNum('yearsToStay') +
+          calcNum('homeInsuranceAnnual') * calcNum('yearsToStay') +
+          downPayment * (Math.pow(1+calcNum('investmentReturnAnnual')/100, calcNum('yearsToStay'))-1);
+
+        const annualRent = calcNum('monthlyRent')*12;
+        let totalRent = 0;
+        for(let y=1;y<=calcNum('yearsToStay');y++){
+          totalRent += annualRent * Math.pow(1+calcNum('rentIncreaseAnnual')/100, y-1);
+        }
+        totalRent += calcNum('securityDeposit');
+
+        const diff = totalBuy - totalRent;
+        const resultEl = document.getElementById('calcResult');
+        const titleEl = document.getElementById('resultTitle');
+        const detailEl = document.getElementById('resultDetail');
+
+        resultEl.style.display = 'block';
+        if(diff<0){
+          titleEl.textContent = 'Buying is cheaper by '+calcMoney(Math.abs(diff));
+          detailEl.textContent = 'Over '+calcNum('yearsToStay')+' years, buying costs '+calcMoney(totalBuy)+' vs renting '+calcMoney(totalRent)+'. Breakeven: ~'+Math.ceil(homePrice/(totalPmt+homePrice*calcNum('propertyTaxAnnualPct')/100+calcNum('homeInsuranceAnnual')))+' years.';
+        }else{
+          titleEl.textContent = 'Renting is cheaper by '+calcMoney(diff);
+          detailEl.textContent = 'Over '+calcNum('yearsToStay')+' years, renting costs '+calcMoney(totalRent)+' vs buying '+calcMoney(totalBuy)+'.';
+        }
+      }
+
+      function calcReset(){
+        document.getElementById('homePrice').value = 450000;
+        document.getElementById('downPaymentPct').value = 20;
+        document.getElementById('mortgageRateAnnual').value = 6.5;
+        document.getElementById('mortgageTermYears').value = 30;
+        document.getElementById('propertyTaxAnnualPct').value = 2.0;
+        document.getElementById('homeInsuranceAnnual').value = 2000;
+        document.getElementById('monthlyRent').value = 2000;
+        document.getElementById('rentIncreaseAnnual').value = 3;
+        document.getElementById('securityDeposit').value = 2000;
+        document.getElementById('investmentReturnAnnual').value = 5;
+        document.getElementById('calcResult').style.display = 'none';
+      }
+
+      // Auto-calculate on input change
+      document.querySelectorAll('.calc-field input').forEach(input => {
+        input.addEventListener('change', calcCalculate);
+        input.addEventListener('input', calcCalculate);
+      });
+      </script>
+    </div>
 
         <p class="note">
           Quick win: add a short section under the calculator explaining the output (e.g., “Breakeven year”, “Total cost of renting”, “Total cost of buying”).
