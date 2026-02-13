@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Rent vs Buy Calculator Australia (Break-even + 30-Year Cost Table)</title>
+  <meta name="description" content="Rent vs buy calculator for Australia. Compare renting vs buying with break-even years, chart, and a 1–30 year average cost table. Includes mortgage, stamp duty, insurance, maintenance, appreciation, rent growth, and opportunity cost." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-australia" />
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="en" href="https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator" />
+  <link rel="alternate" hreflang="en-us" href="https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-australia />
+  <link rel="alternate" hreflang="en-ca" href="https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-australia" />
+  <link rel="alternate" hreflang="en-gb" href="https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-uk" />
+  <link rel="alternate" hreflang="en-au" href="https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-australia" />
+  <link rel="alternate" hreflang="x-default" href="https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator" />
+
+  <!-- SoftwareApplication schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Rent vs Buy Calculator (Australia)",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"Web",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"CAD"},
+    "inLanguage":"en-AU"
+  }
+  </script>
+
+  <!-- Breadcrumb schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator"},
+      {"@type":"ListItem","position":2,"name":"Australia","item":"https://rent-vs-buy-calculator.it.com/rent-vs-buy-calculator-australia"}
+    ]
+  }
+  </script>
+
+  <!-- FAQ schema (must match visible FAQ below) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Is this rent vs buy calculator Australia-only?",
+        "acceptedAnswer":{"@type":"Answer","text":"This Australia page uses Canadian terminology and assumptions (mortgage, stamp duty, closing costs, etc.). For other countries, use the country pages so your inputs match local conditions."}
+      },
+      {
+        "@type":"Question",
+        "name":"What affects break-even the most in Australia?",
+        "acceptedAnswer":{"@type":"Answer","text":"Time horizon, mortgage rate, stamp duty and closing costs, local property tax levels, rent growth, appreciation, and the opportunity cost of the down payment typically have the biggest impact."}
+      },
+      {
+        "@type":"Question",
+        "name":"Should I rent or buy if I might move in 3 to 5 years?",
+        "acceptedAnswer":{"@type":"Answer","text":"Short stays often favor renting because buying has large upfront and selling costs. Use the Years you plan to stay input to see if you reach break-even before your expected move."}
+      },
+      {
+        "@type":"Question",
+        "name":"How do I model stamp duty?",
+        "acceptedAnswer":{"@type":"Answer","text":"Use the Buying closing costs input to approximate stamp duty and other upfront costs. These vary by province and home price."}
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111827;
+      --muted:#4b5563;
+      --line:#e5e7eb;
+      --panel:#f8fafc;
+      --panel2:#ffffff;
+      --brand:#2563eb;
+      --brand2:#1d4ed8;
+      --shadow: 0 8px 24px rgba(0,0,0,.06);
+      --radius:12px;
+      --radius2:14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background: var(--bg);
+      color: var(--text);
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .topbar{
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+    .wrap{
+      max-width: 980px;
+      margin:0 auto;
+      padding: 18px 16px 80px;
+    }
+    .crumbs{
+      font-size: 13px;
+      color: var(--muted);
+      margin: 6px 0 10px;
+    }
+    .crumbs a{ color: rgba(255,255,255,0.9); }
+    .crumbs span{ color: rgba(255,255,255,0.9); }
+
+    h1{
+      margin: 0 0 14px;
+      font-size: 28px;
+      letter-spacing:-.02em;
+      color:#fff;
+    }
+
+    .notice{
+      background: rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.25);
+      color:#ffffff;
+      padding:10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .card{
+      background: var(--panel2);
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+    .cardHeader{
+      padding: 10px 12px;
+      border-bottom:1px solid var(--line);
+      background: var(--panel);
+      border-top-left-radius: var(--radius2);
+      border-top-right-radius: var(--radius2);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .cardBody{ padding: 12px; }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media(min-width: 720px){
+      .grid2{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    label{
+      font-size: 12px;
+      color: var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+    }
+    input, select{
+      width:100%;
+      padding: 10px 10px;
+      border:1px solid var(--line);
+      border-radius: 10px;
+      background:#fff;
+      color: var(--text);
+      outline: none;
+    }
+    input:focus, select:focus{
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+    }
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .btn{
+      border:1px solid var(--brand2);
+      background: var(--brand);
+      color:#fff;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor:pointer;
+    }
+    .btn:hover{ background: var(--brand2); }
+    .btnSecondary{
+      border:1px solid var(--line);
+      background:#fff;
+      color: var(--text);
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor:pointer;
+    }
+    .btnSecondary:hover{ background:#f9fafb; }
+
+    .resultTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .resultTitle h2{
+      margin:0;
+      font-size: 16px;
+    }
+    .resultText{
+      margin: 10px 0 0;
+      color: var(--text);
+      font-weight: 700;
+      line-height: 1.5;
+    }
+    .subText{
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 13px;
+    }
+
+    .chartWrap{
+      margin-top: 12px;
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      overflow:hidden;
+    }
+    .chartTop{
+      padding: 10px 12px;
+      border-bottom:1px solid var(--line);
+      background: var(--panel);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .chartHint{
+      font-weight:600;
+      color: var(--muted);
+    }
+    svg{ display:block; width:100%; height:auto; }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+    th, td{
+      border-top:1px solid var(--line);
+      padding: 8px 8px;
+      text-align:right;
+      white-space:nowrap;
+    }
+    th:first-child, td:first-child{ text-align:left; }
+    thead th{
+      position: sticky;
+      top: 0;
+      background:#fff;
+      z-index: 1;
+      border-top:1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footerLinks{
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    /* SEO Content Styles (reuse your existing styling) */
+    #seo-content .cardBody h2{
+      font-size: 18px;
+      margin: 20px 0 8px;
+      color: #2563eb;
+      font-weight: 700;
+    }
+    #seo-content .cardBody h2:first-of-type{
+      margin-top: 0;
+    }
+    #seo-content .cardBody h3{
+      font-size: 18px;
+      margin: 14px 0 6px;
+      color: #2563eb;
+      font-weight: 700;
+    }
+    #seo-content .cardBody ul,
+    #seo-content .cardBody ol{
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    #seo-content .cardBody li{
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+    #seo-content .cardBody details{
+      margin: 12px 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    #seo-content .cardBody details[open]{
+      background: #f9fafb;
+    }
+    #seo-content .cardBody summary{
+      padding: 12px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      background: var(--panel);
+      user-select: none;
+    }
+    #seo-content .cardBody summary:hover{
+      background: #f1f5f9;
+    }
+    #seo-content .cardBody details p.subText{
+      margin: 0;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+    }
+    #seo-content .cardBody strong{
+      color: var(--text);
+    }
+
+    /* Top Nav (same as your homepage) */
+    .siteNav{
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #2563eb;
+      border-bottom: 1px solid #1d4ed8;
+    }
+    .navInner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .brandIcon{ font-size: 20px; line-height: 1; }
+    .brandText{ white-space: nowrap; }
+
+    .navLinks{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .navLink{
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+    }
+    .navLink:hover{
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
+      text-decoration:none;
+    }
+    .navLink.active{
+      background: #ffffff;
+      border-color: #c7d2fe;
+      color: #1e3a8a;
+      font-weight: 700;
+      text-decoration:none;
+    }
+
+    @media (max-width: 640px){
+      .navInner{ flex-direction: column; align-items: flex-start; gap: 8px; }
+      .navLinks{ gap: 6px; }
+    }
+
+    /* USA keyword hub */
+    .kwGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media(min-width: 720px){
+      .kwGrid{ grid-template-columns: 1fr 1fr; }
+    }
+    .kwBox{
+      border:1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background:#fff;
+    }
+    .kwBox h3{
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .kwList{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 13px;
+    }
+    .kwList a{ color: var(--brand); }
+  </style>
+</head>
+
+<body>
+  <nav class="siteNav" aria-label="Primary">
+    <div class="navInner">
+      <a class="brand" href="/rent-vs-buy-calculator" aria-label="Rent vs Buy Calculator home">
+        <span class="brandIcon" aria-hidden="true">🏠</span>
+        <span class="brandText">Rent vs Buy Calculator</span>
+      </a>
+
+      <div class="navLinks" aria-label="Country calculators">
+        <a href="/rent-vs-buy-calculator-australia class="navLink">USA</a>
+        <a href="/rent-vs-buy-calculator-australia" class="navLink active">Australia</a>
+        <a href="/rent-vs-buy-calculator-uk" class="navLink">Australia</a>
+        <a href="/rent-vs-buy-calculator-australia" class="navLink">Australia</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="topbar" style="background:#2563eb;">
+    <div class="wrap" style="padding-bottom:12px;">
+      <div class="crumbs" aria-label="Breadcrumb">
+        <a href="/rent-vs-buy-calculator">home</a>
+        <span aria-hidden="true"> / </span>
+        <span>australia</span>
+      </div>
+
+      <h1>Rent vs Buy Calculator (Australia)</h1>
+
+      <div class="notice">
+        Australia page: use local assumptions (stamp duty, closing costs). For city-specific results, try the Australia city pages below.
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- Calculator -->
+    <section class="layout" aria-label="calculator">
+
+      <div class="card">
+        <div class="cardHeader">Home Purchase</div>
+        <div class="cardBody">
+          <div class="grid2">
+            <div class="field">
+              <label>Home price <span>CAD</span></label>
+              <input id="homePrice" type="number" min="0" step="1000" value="650000" />
+            </div>
+            <div class="field">
+              <label>Down payment <span>%</span></label>
+              <input id="downPaymentPct" type="number" min="0" max="100" step="0.1" value="20" />
+            </div>
+
+            <div class="field">
+              <label>Interest rate <span>%</span></label>
+              <input id="mortgageRateAnnual" type="number" min="0" step="0.01" value="5.0" />
+            </div>
+            <div class="field">
+              <label>Loan term <span>years</span></label>
+              <input id="mortgageTermYears" type="number" min="1" step="1" value="25" />
+            </div>
+
+            <div class="field">
+              <label>Buying closing costs <span>% of price</span></label>
+              <input id="buyingClosingCostPct" type="number" min="0" step="0.1" value="2.0" />
+            </div>
+            <div class="field">
+              <label>Property tax / year <span>% of price</span></label>
+              <input id="propertyTaxAnnualPct" type="number" min="0" step="0.01" value="0.3" />
+            </div>
+
+            <div class="field">
+              <label>Home insurance / year <span>CAD</span></label>
+              <input id="homeInsuranceAnnual" type="number" min="0" step="50" value="1800" />
+            </div>
+            <div class="field">
+              <label>HOA fee / year <span>CAD</span></label>
+              <input id="hoaAnnual" type="number" min="0" step="50" value="0" />
+            </div>
+
+            <div class="field">
+              <label>Maintenance cost / year <span>% of price</span></label>
+              <input id="maintenanceAnnualPct" type="number" min="0" step="0.01" value="0.3" />
+            </div>
+            <div class="field">
+              <label>Home value appreciation / year <span>%</span></label>
+              <input id="homeAppreciationAnnual" type="number" step="0.1" value="3" />
+            </div>
+
+            <div class="field">
+              <label>Selling closing costs <span>% of future value</span></label>
+              <input id="sellingCostPct" type="number" min="0" step="0.1" value="6" />
+            </div>
+            <div class="field">
+              <label>Years you plan to stay <span>years</span></label>
+              <input id="yearsToStay" type="number" min="1" step="1" value="5" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cardHeader">Home Rent</div>
+        <div class="cardBody">
+          <div class="grid2">
+            <div class="field">
+              <label>Monthly rental fee <span>CAD</span></label>
+              <input id="monthlyRent" type="number" min="0" step="50" value="4500" />
+            </div>
+            <div class="field">
+              <label>Rental fee increase / year <span>%</span></label>
+              <input id="rentIncreaseAnnual" type="number" min="0" step="0.1" value="3" />
+            </div>
+
+            <div class="field">
+              <label>Renter's insurance / month <span>CAD</span></label>
+              <input id="rentersInsuranceMonthly" type="number" min="0" step="5" value="20" />
+            </div>
+            <div class="field">
+              <label>Security deposit <span>CAD</span></label>
+              <input id="securityDeposit" type="number" min="0" step="50" value="4500" />
+            </div>
+
+            <div class="field" style="grid-column:1/-1">
+              <label>Upfront cost (application/moving, optional) <span>CAD</span></label>
+              <input id="rentUpfrontCost" type="number" min="0" step="50" value="0" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cardHeader">Your Information</div>
+        <div class="cardBody">
+          <div class="grid2">
+            <div class="field">
+              <label>Country preset</label>
+              <select id="preset">
+                <option value="usa">USA</option>
+                <option value="australia" selected>Australia (default)</option>
+                <option value="uk">UK</option>
+                <option value="australia">Australia</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Average investment return <span>%</span></label>
+              <input id="investmentReturnAnnual" type="number" step="0.1" value="5" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="calcBtn" type="button">Calculate</button>
+            <button class="btnSecondary" id="resetBtn" type="button">Reset</button>
+            <button class="btnSecondary" id="copyLinkBtn" type="button">Copy link</button>
+          </div>
+
+          <div class="footerLinks">
+            <span>Country pages:</span>
+            <a href="/rent-vs-buy-calculator-australia>USA</a>
+            <a href="/rent-vs-buy-calculator-canada">Australia</a>
+            <a href="/rent-vs-buy-calculator-uk">UK</a>
+            <a href="/rent-vs-buy-calculator-australia">Australia</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="card" id="result">
+        <div class="cardHeader">
+          <div class="resultTitle">
+            <h2>Result</h2>
+            <span style="font-weight:600;color:var(--muted);font-size:12px;">Buy vs Rent (1–30 years)</span>
+          </div>
+        </div>
+        <div class="cardBody">
+          <p class="resultText" id="resultLine">—</p>
+          <p class="subText" id="resultExplain"></p>
+
+          <div class="chartWrap">
+            <div class="chartTop">
+              <span>Average Monthly Cost Over Time</span>
+              <span class="chartHint">Buy vs Rent</span>
+            </div>
+            <svg id="chart" viewBox="0 0 900 260" role="img" aria-label="Buy vs Rent chart">
+              <rect x="0" y="0" width="900" height="260" fill="#fff"></rect>
+              <g id="grid"></g>
+              <g id="axis"></g>
+              <path id="buyLine" fill="none" stroke="#2563eb" stroke-width="3"></path>
+              <path id="rentLine" fill="none" stroke="#6b7280" stroke-width="3"></path>
+              <g id="legend"></g>
+            </svg>
+          </div>
+
+          <p class="subText" style="margin-top:12px;">
+            The table below shows the <strong>average cost</strong> based on how long you stay (up to 30 years).
+          </p>
+
+          <div style="overflow:auto; border:1px solid var(--line); border-radius:12px;">
+            <table aria-label="Average cost table">
+              <thead>
+                <tr>
+                  <th>Staying Length</th>
+                  <th colspan="2">Average Buying Cost</th>
+                  <th colspan="2">Average Renting Cost</th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>Monthly</th>
+                  <th>Annual</th>
+                  <th>Monthly</th>
+                  <th>Annual</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+
+          <p class="subText" style="margin-top:10px;">
+            Note: This is a simplified financial model for comparison and education.
+            Real outcomes depend on local taxes, insurance, fees, and market conditions.
+          </p>
+        </div>
+      </div>
+
+      <!-- Australia long-tail keyword hub (internal links) -->
+      <section class="card" id="canada-hub">
+        <div class="cardHeader">Popular Australia Rent vs Buy Searches</div>
+        <div class="cardBody">
+          <p class="subText" style="margin-top:0;">
+            These pages target common Canadian long-tail searches (cities + decision scenarios). Start here, then use the calculator above.
+          </p>
+
+          <div class="kwGrid">
+            <div class="kwBox">
+              <h3>Top Canadian cities</h3>
+              <ul class="kwList">
+                <li><a href="/rent-vs-buy-toronto">rent vs buy toronto</a></li>
+                <li><a href="/rent-vs-buy-vancouver">rent vs buy vancouver</a></li>
+                <li><a href="/rent-vs-buy-montreal">rent vs buy montreal</a></li>
+                <li><a href="/rent-vs-buy-calgary">rent vs buy calgary</a></li>
+                <li><a href="/rent-vs-buy-edmonton">rent vs buy edmonton</a></li>
+                <li><a href="/rent-vs-buy-ottawa">rent vs buy ottawa</a></li>
+              </ul>
+            </div>
+
+            <div class="kwBox">
+              <h3>Time horizon pages</h3>
+              <ul class="kwList">
+                <li><a href="/rent-vs-buy-short-term">rent vs buy short term</a></li>
+                <li><a href="/rent-vs-buy-long-term">rent vs buy long term</a></li>
+                <li><a href="/rent-vs-buy-5-years">rent vs buy 5 years</a></li>
+                <li><a href="/rent-vs-buy-10-years">rent vs buy 10 years</a></li>
+                <li><a href="/rent-vs-buy-break-even">rent vs buy break even</a></li>
+              </ul>
+            </div>
+
+            <div class="kwBox">
+              <h3>Financing & decision scenarios</h3>
+              <ul class="kwList">
+                <li><a href="/rent-vs-buy-first-time-buyer">rent vs buy first time buyer</a></li>
+                <li><a href="/rent-vs-buy-high-interest-rate">rent vs buy high interest rate</a></li>
+                <li><a href="/rent-vs-buy-low-interest-rate">rent vs buy low interest rate</a></li>
+                <li><a href="/rent-vs-buy-with-cash">rent vs buy with cash</a></li>
+                <li><a href="/rent-vs-buy-low-down-payment">rent vs buy with low down payment</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="subText" style="margin-top:12px;">
+            Tip: publish these pages as individual HTML files later. Even now, this hub helps you plan your internal linking structure.
+          </p>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- Australia-specific SEO block (not the same as homepage) -->
+    <section class="card" id="seo-content">
+      <div class="cardHeader">Rent vs Buy in Australia</div>
+      <div class="cardBody">
+        <h2>Rent vs buy in Australia: what usually drives the result</h2>
+        <p class="subText">
+          In Australia, the rent vs buy decision is often dominated by mortgage interest rates, stamp duty and closing costs,
+          and local property taxes. Your expected time in the home is usually the single biggest factor—short stays often
+          make renting cheaper, while longer stays can favor buying if equity and appreciation outweigh ownership costs.
+        </p>
+
+        <h2>How to use this Australia rent vs buy calculator</h2>
+        <ol>
+          <li><strong>Start with your expected stay.</strong> Try 3, 5, 7, and 10 years to see how break-even changes.</li>
+          <li><strong>Set a realistic mortgage rate.</strong> Even small changes can shift the outcome.</li>
+          <li><strong>Include stamp duty.</strong> Use "Buying closing costs" to approximate provincial stamp duty.</li>
+          <li><strong>Use a conservative investment return.</strong> This represents opportunity cost of cash.</li>
+        </ol>
+
+        <h2>Common Canadian assumptions to sanity-check</h2>
+        <ul>
+          <li><strong>Property tax</strong> varies by municipality and can materially change costs.</li>
+          <li><strong>Maintenance</strong> scales with home price—older homes often cost more to maintain.</li>
+          <li><strong>Condo fees</strong> can be substantial in condos and some strata properties.</li>
+          <li><strong>Land transfer tax</strong> varies by province and can significantly affect upfront costs.</li>
+        </ul>
+
+        <h2 id="faq">FAQ</h2>
+
+        <details>
+          <summary>Is this rent vs buy calculator Australia-only?</summary>
+          <p class="subText">
+            This page is written for Canadian terminology and typical cost categories. Use the country navigation for USA, UK,
+            and Australia so your labels and assumptions better match local norms.
+          </p>
+        </details>
+
+        <details>
+          <summary>What affects break-even the most in Australia?</summary>
+          <p class="subText">
+            Time horizon, mortgage rate, stamp duty, local property taxes, rent growth, appreciation, and the opportunity cost
+            of the down payment are usually the biggest drivers.
+          </p>
+        </details>
+
+        <details>
+          <summary>Should I rent or buy if I might move in 3 to 5 years?</summary>
+          <p class="subText">
+            Many 3–5 year scenarios favor renting because transaction costs are spread across fewer years.
+            Change "Years you plan to stay" to see whether you reach break-even before your move.
+          </p>
+        </details>
+
+        <details>
+          <summary>How do I model stamp duty?</summary>
+          <p class="subText">
+            Use the Buying closing costs input to approximate stamp duty and other upfront costs.
+            Land transfer tax varies by province and home price, with some provinces offering first-time buyer rebates.
+          </p>
+        </details>
+
+        <p class="subText" style="margin-top:14px;">
+          Next step: publish city pages (e.g., Sydney, Melbourne, Brisbane) with localized default inputs and short city-specific guidance.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="background:#f8fafc; border-top:1px solid #e5e7eb; padding:24px 16px; margin-top:32px;">
+    <div style="max-width:980px; margin:0 auto; text-align:center;">
+      <p style="margin:0 0 10px; font-size:16px; color:#4b5563;">
+        © 2025 Rent vs Buy Calculator. All rights reserved.
+      </p>
+      <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:15px;">
+        <a href="#" style="color:#2563eb; text-decoration:none;">About</a>
+        <a href="#" style="color:#2563eb; text-decoration:none;">Contact</a>
+        <a href="/sitemap.xml" style="color:#2563eb; text-decoration:none;">Sitemap</a>
+        <a href="#" style="color:#2563eb; text-decoration:none;">Privacy Policy</a>
+        <a href="#" style="color:#2563eb; text-decoration:none;">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ---------- Country redirect (SEO: use country pages) ----------
+  function countryPath(code){
+    const b="/rent-vs-buy-calculator";
+    return { usa:b+"-usa", canada:b+"-canada", uk:b+"-uk", australia:b+"-australia" }[code] || b+"-usa";
+  }
+
+  // ---------- Defaults (starter assumptions) ----------
+  function presetDefaults(preset){
+    const map = {
+      usa: { propertyTaxAnnualPct: 1.2, buyingClosingCostPct: 2.5, sellingCostPct: 6.0, homeInsuranceAnnual: 1800 },
+      canada: { propertyTaxAnnualPct: 1.0, buyingClosingCostPct: 2.0, sellingCostPct: 5.0, homeInsuranceAnnual: 1600 },
+      uk: { propertyTaxAnnualPct: 0.4, buyingClosingCostPct: 1.5, sellingCostPct: 2.5, homeInsuranceAnnual: 500 },
+      australia: { propertyTaxAnnualPct: 0.3, buyingClosingCostPct: 3.0, sellingCostPct: 2.5, homeInsuranceAnnual: 1200 }
+    };
+    return map[preset] || map.australia;
+  }
+
+  function applyPreset(preset){
+    const d = presetDefaults(preset);
+    document.getElementById("propertyTaxAnnualPct").value = d.propertyTaxAnnualPct;
+    document.getElementById("buyingClosingCostPct").value = d.buyingClosingCostPct;
+    document.getElementById("sellingCostPct").value = d.sellingCostPct;
+    document.getElementById("homeInsuranceAnnual").value = d.homeInsuranceAnnual;
+  }
+
+  // ---------- Helpers ----------
+  function money(x){
+    return new Intl.NumberFormat(undefined, { style:'currency', currency:'AUD', maximumFractionDigits:0 }).format(x);
+  }
+  function num(id){
+    const v = parseFloat(document.getElementById(id).value);
+    return Number.isFinite(v) ? v : 0;
+  }
+  function monthlyPayment(loanAmount, annualRate, termYears){
+    const n = termYears * 12;
+    const r = annualRate / 12;
+    if (r === 0) return loanAmount / n;
+    return loanAmount * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+  }
+
+  // ---------- Model ----------
+  function calcForYears(inputs, years){
+    // RENT
+    let totalRentOutflow = inputs.rentUpfrontCost;
+    for (let y=1; y<=years; y++){
+      const annualRent = inputs.monthlyRent * 12 * Math.pow(1 + inputs.rentIncreaseAnnual, y-1);
+      totalRentOutflow += annualRent;
+      totalRentOutflow += inputs.rentersInsuranceMonthly * 12;
+    }
+    const rentDepositOppCost = inputs.securityDeposit * (Math.pow(1 + inputs.investmentReturnAnnual, years) - 1);
+    const totalRentCost = totalRentOutflow + rentDepositOppCost;
+
+    // BUY
+    const downPayment = inputs.homePrice * inputs.downPaymentPct;
+    const loanAmount = inputs.homePrice - downPayment;
+
+    const mPay = monthlyPayment(loanAmount, inputs.mortgageRateAnnual, inputs.mortgageTermYears);
+    const monthsPaid = Math.min(years*12, inputs.mortgageTermYears*12);
+
+    let balance = loanAmount;
+    const r = inputs.mortgageRateAnnual / 12;
+    for (let i=0; i<monthsPaid; i++){
+      const interest = balance * r;
+      const principal = Math.min(mPay - interest, balance);
+      balance -= principal;
+      if (balance <= 0){ balance = 0; break; }
+    }
+
+    const totalMortgagePaid = mPay * monthsPaid;
+
+    const totalPropertyTax = inputs.homePrice * inputs.propertyTaxAnnualPct * years;
+    const totalMaintenance = inputs.homePrice * inputs.maintenanceAnnualPct * years;
+    const totalHomeInsurance = inputs.homeInsuranceAnnual * years;
+    const totalHOA = inputs.hoaAnnual * years;
+
+    const buyingClosingCost = inputs.homePrice * inputs.buyingClosingCostPct;
+
+    const futureHomeValue = inputs.homePrice * Math.pow(1 + inputs.homeAppreciationAnnual, years);
+    const sellingCost = futureHomeValue * inputs.sellingCostPct;
+    const netEquityRecovered = futureHomeValue - balance - sellingCost;
+
+    const investBase = downPayment + buyingClosingCost;
+    const buyOppCost = investBase * (Math.pow(1 + inputs.investmentReturnAnnual, years) - 1);
+
+    const totalBuyCost =
+      totalMortgagePaid + totalPropertyTax + totalMaintenance + totalHomeInsurance + totalHOA +
+      buyingClosingCost + buyOppCost - netEquityRecovered;
+
+    return {
+      years,
+      totalBuyCost,
+      totalRentCost,
+      avgBuyMonthly: totalBuyCost / (years*12),
+      avgBuyAnnual: totalBuyCost / years,
+      avgRentMonthly: totalRentCost / (years*12),
+      avgRentAnnual: totalRentCost / years
+    };
+  }
+
+  function readInputs(){
+    return {
+      homePrice: num("homePrice"),
+      downPaymentPct: num("downPaymentPct")/100,
+      mortgageRateAnnual: num("mortgageRateAnnual")/100,
+      mortgageTermYears: Math.max(1, Math.floor(num("mortgageTermYears"))),
+      buyingClosingCostPct: num("buyingClosingCostPct")/100,
+      propertyTaxAnnualPct: num("propertyTaxAnnualPct")/100,
+      homeInsuranceAnnual: num("homeInsuranceAnnual"),
+      hoaAnnual: num("hoaAnnual"),
+      maintenanceAnnualPct: num("maintenanceAnnualPct")/100,
+      homeAppreciationAnnual: num("homeAppreciationAnnual")/100,
+      sellingCostPct: num("sellingCostPct")/100,
+
+      monthlyRent: num("monthlyRent"),
+      rentIncreaseAnnual: num("rentIncreaseAnnual")/100,
+      rentersInsuranceMonthly: num("rentersInsuranceMonthly"),
+      securityDeposit: num("securityDeposit"),
+      rentUpfrontCost: num("rentUpfrontCost"),
+
+      investmentReturnAnnual: num("investmentReturnAnnual")/100
+    };
+  }
+
+  function buildShareURL(){
+    const url = new URL(window.location.href);
+    const ids = [
+      "homePrice","downPaymentPct","mortgageRateAnnual","mortgageTermYears","buyingClosingCostPct",
+      "propertyTaxAnnualPct","homeInsuranceAnnual","hoaAnnual","maintenanceAnnualPct","homeAppreciationAnnual","sellingCostPct",
+      "monthlyRent","rentIncreaseAnnual","rentersInsuranceMonthly","securityDeposit","rentUpfrontCost",
+      "investmentReturnAnnual","yearsToStay","preset"
+    ];
+    for (const id of ids){
+      const el = document.getElementById(id);
+      if (!el) continue;
+      const v = String(el.value ?? "").trim();
+      if (v !== "") url.searchParams.set(id, v);
+    }
+    return url.toString();
+  }
+
+  function applyParams(){
+    const url = new URL(window.location.href);
+    const ids = [
+      "homePrice","downPaymentPct","mortgageRateAnnual","mortgageTermYears","buyingClosingCostPct",
+      "propertyTaxAnnualPct","homeInsuranceAnnual","hoaAnnual","maintenanceAnnualPct","homeAppreciationAnnual","sellingCostPct",
+      "monthlyRent","rentIncreaseAnnual","rentersInsuranceMonthly","securityDeposit","rentUpfrontCost",
+      "investmentReturnAnnual","yearsToStay","preset"
+    ];
+    for (const id of ids){
+      const v = url.searchParams.get(id);
+      if (v !== null){
+        const el = document.getElementById(id);
+        if (el) el.value = v;
+      }
+    }
+  }
+
+  // ---------- Chart ----------
+  function drawChart(series){
+    const svgW = 900, svgH = 260;
+    const padL=60, padR=18, padT=18, padB=34;
+    const W = svgW - padL - padR;
+    const H = svgH - padT - padB;
+
+    const grid = document.getElementById("grid");
+    const axis = document.getElementById("axis");
+    const legend = document.getElementById("legend");
+    const buyLine = document.getElementById("buyLine");
+    const rentLine = document.getElementById("rentLine");
+
+    grid.innerHTML=""; axis.innerHTML=""; legend.innerHTML="";
+
+    const maxY = Math.max(...series.map(d=>Math.max(d.buy,d.rent)));
+    const x = (yr)=> padL + W * ( (yr-1) / 29 );
+    const y = (v)=> padT + H - H * ( v / (maxY || 1) );
+
+    for (let i=0;i<=4;i++){
+      const gy = padT + H*i/4;
+      const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+      line.setAttribute("x1", padL);
+      line.setAttribute("x2", svgW-padR);
+      line.setAttribute("y1", gy);
+      line.setAttribute("y2", gy);
+      line.setAttribute("stroke", "#e5e7eb");
+      grid.appendChild(line);
+
+      const val = maxY*(1-i/4);
+      const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+      t.setAttribute("x", 10);
+      t.setAttribute("y", gy+4);
+      t.setAttribute("fill", "#6b7280");
+      t.setAttribute("font-size", "12");
+      t.textContent = money(val);
+      axis.appendChild(t);
+    }
+
+    [1,10,20,30].forEach(yr=>{
+      const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+      t.setAttribute("x", x(yr));
+      t.setAttribute("y", svgH-12);
+      t.setAttribute("text-anchor","middle");
+      t.setAttribute("fill","#6b7280");
+      t.setAttribute("font-size","12");
+      t.textContent = yr;
+      axis.appendChild(t);
+    });
+
+    function pathFor(key){
+      let d="";
+      series.forEach((p,idx)=>{
+        const px=x(p.year), py=y(p[key]);
+        d += (idx===0?"M":"L") + px + " " + py + " ";
+      });
+      return d.trim();
+    }
+    buyLine.setAttribute("d", pathFor("buy"));
+    rentLine.setAttribute("d", pathFor("rent"));
+
+    const mk = (x0, y0, color, text)=>{
+      const g = document.createElementNS("http://www.w3.org/2000/svg","g");
+      const l = document.createElementNS("http://www.w3.org/2000/svg","line");
+      l.setAttribute("x1", x0);
+      l.setAttribute("x2", x0+26);
+      l.setAttribute("y1", y0);
+      l.setAttribute("y2", y0);
+      l.setAttribute("stroke", color);
+      l.setAttribute("stroke-width","4");
+      g.appendChild(l);
+      const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+      t.setAttribute("x", x0+34);
+      t.setAttribute("y", y0+4);
+      t.setAttribute("fill","#374151");
+      t.setAttribute("font-size","12");
+      t.textContent = text;
+      g.appendChild(t);
+      return g;
+    };
+    legend.appendChild(mk(svgW-190, 28, "#2563eb", "Buy"));
+    legend.appendChild(mk(svgW-120, 28, "#6b7280", "Rent"));
+  }
+
+  // ---------- Render ----------
+  function render(){
+    const inputs = readInputs();
+    const stayYears = Math.max(1, Math.floor(num("yearsToStay")));
+
+    const series = [];
+    let breakEven = null;
+
+    for (let y=1; y<=30; y++){
+      const r = calcForYears(inputs, y);
+      series.push({ year:y, buy:r.avgBuyMonthly, rent:r.avgRentMonthly, raw:r });
+      if (breakEven === null && r.totalBuyCost <= r.totalRentCost) breakEven = y;
+    }
+
+    const chosen = series[stayYears-1].raw;
+    const diff = chosen.totalBuyCost - chosen.totalRentCost;
+
+    if (breakEven === null){
+      document.getElementById("resultLine").textContent =
+        "Renting is cheaper under these assumptions (no break-even within 30 years).";
+      document.getElementById("resultExplain").textContent =
+        "Try adjusting appreciation, rent growth, interest rate, or selling costs to see how the break-even changes.";
+    } else {
+      document.getElementById("resultLine").textContent =
+        `Buying is cheaper if you stay for about ${breakEven} year(s) or longer. Otherwise, renting is cheaper.`;
+      document.getElementById("resultExplain").textContent =
+        `For a ${stayYears}-year stay, the difference is ${money(Math.abs(diff))} (${diff < 0 ? "buying" : "renting"} is lower) based on your inputs.`;
+    }
+
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = "";
+    series.forEach(p=>{
+      const r = p.raw;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${p.year} Year${p.year>1?"s":""}</td>
+        <td>${money(r.avgBuyMonthly)}</td>
+        <td>${money(r.avgBuyAnnual)}</td>
+        <td>${money(r.avgRentMonthly)}</td>
+        <td>${money(r.avgRentAnnual)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    drawChart(series);
+    history.replaceState({}, "", buildShareURL());
+  }
+
+  // ---------- Events ----------
+  document.getElementById("calcBtn").addEventListener("click", render);
+
+  document.getElementById("resetBtn").addEventListener("click", ()=>{
+    // reset to Australia defaults
+    document.getElementById("preset").value = "canada";
+    applyPreset("canada");
+
+    document.getElementById("homePrice").value = 650000;
+    document.getElementById("downPaymentPct").value = 20;
+    document.getElementById("mortgageRateAnnual").value = 5.0;
+    document.getElementById("mortgageTermYears").value = 25;
+    document.getElementById("maintenanceAnnualPct").value = 0.3;
+    document.getElementById("homeAppreciationAnnual").value = 3;
+    document.getElementById("homeInsuranceAnnual").value = 1800;
+    document.getElementById("hoaAnnual").value = 0;
+    document.getElementById("yearsToStay").value = 5;
+
+    document.getElementById("monthlyRent").value = 4500;
+    document.getElementById("rentIncreaseAnnual").value = 3;
+    document.getElementById("rentersInsuranceMonthly").value = 20;
+    document.getElementById("securityDeposit").value = 4500;
+    document.getElementById("rentUpfrontCost").value = 0;
+
+    document.getElementById("investmentReturnAnnual").value = 5;
+
+    render();
+  });
+
+  document.getElementById("copyLinkBtn").addEventListener("click", async ()=>{
+    const link = buildShareURL();
+    try{
+      await navigator.clipboard.writeText(link);
+      const btn = document.getElementById("copyLinkBtn");
+      const old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(()=>btn.textContent = old, 900);
+    }catch{
+      prompt("Copy this link:", link);
+    }
+  });
+
+  document.getElementById("preset").addEventListener("change", (e)=>{
+    const target = countryPath(e.target.value);
+    const share = buildShareURL();
+    const u = new URL(share);
+    window.location.href = target + "?" + u.searchParams.toString();
+  });
+
+  // ---------- Init ----------
+  (function init(){
+    applyPreset("canada");
+    applyParams();
+    render();
+  })();
+  </script>
+
+</body>
+</html>
