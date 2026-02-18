@@ -363,8 +363,67 @@
   @media (max-width: 640px){
     .navInner{ flex-direction: column; align-items: flex-start; gap: 8px; }
     .navLinks{ gap: 6px; }
-  }  
+  }
 </style>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long do I need to stay in a home to break even?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In many U.S. markets, homeowners typically need to stay 5–7 years to break even. However, the exact breakeven point depends on interest rates, appreciation, selling costs, and rent growth."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this calculator include property taxes and maintenance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The calculator includes property taxes, home insurance, maintenance, closing costs, and estimated selling costs in the total ownership calculation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if interest rates go higher?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Higher mortgage rates increase monthly payments and extend the breakeven timeline, making renting more competitive in the short term."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is renting always cheaper in the short term?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Often yes. Because buying involves upfront closing costs and resale fees, renting is typically more flexible and financially safer for stays under 5 years."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the calculator account for home appreciation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The model includes a home appreciation rate, which impacts long-term equity growth and total ownership cost comparison."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I rely only on this calculator to make a decision?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This tool provides educational estimates based on assumptions. You should also consider your personal finances, job stability, and long-term plans before making a housing decision."
+        }
+      }
+    ]
+  }
+  </script>
+
 </head>
 <body>
 
